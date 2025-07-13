@@ -2,4 +2,4 @@
 title: Tulisan Pertamaku
 date: 2025-07-13T15:19:18.605Z
 ---
-T﻿estiiinngggg
+T﻿estiiinngggg gimana dah ini kok ngga bisaaaa
