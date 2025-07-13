@@ -1,0 +1,20 @@
+# Pengaturan koneksi ke repositori GitHub Anda
+backend:
+  name: git-gateway
+  branch: main # Ganti menjadi 'master' jika nama branch utama Anda adalah master
+
+# Pengaturan untuk upload gambar
+media_folder: "img/uploads" # Folder untuk menyimpan gambar yang di-upload
+public_folder: "/img/uploads" # Alamat publik untuk mengakses gambar tersebut
+
+# Koleksi konten Anda. Kita buat satu untuk "Jurnal".
+collections:
+  - name: "jurnal" # Nama teknis untuk koleksi ini
+    label: "Jurnal" # Nama yang akan Anda lihat di dasbor CMS
+    folder: "_jurnal" # Folder tempat menyimpan file-file tulisan Anda
+    create: true # Izinkan membuat tulisan baru
+    slug: "{{slug}}" # Menggunakan judul sebagai nama file (misal: tulisan-pertama.md)
+    fields: # Kolom isian yang akan muncul saat Anda menulis
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Tanggal Publikasi", name: "date", widget: "datetime" }
+      - { label: "Isi Tulisan", name: "body", widget: "markdown" }
