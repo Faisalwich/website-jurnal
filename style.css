@@ -1,30 +1,28 @@
 /* ======================================================
-   SITUS JURNAL - STYLE.CSS
+   SITUS JURNAL - GAYA EDITORIAL (OPSI 2)
    ====================================================== */
 
 /* --- 1. Variabel Warna & Font --- */
 :root {
-  /* Tema Terang (Default) */
-  --background-color: #f8f9fa; /* Putih sedikit keabuan */
-  --text-color: #212529; /* Hitam pekat, nyaman dibaca */
-  --accent-color: #0d6efd; /* Biru profesional */
-  --card-background: #ffffff; /* Latar kartu/postingan */
-  --meta-text-color: #6c757d; /* Warna untuk teks tanggal/meta */
-  --border-color: #dee2e6; /* Warna untuk garis pemisah */
+  /* Tema Gelap (Default) */
+  --bg-color: #1e1e1e; /* Off-black */
+  --text-color: #e8e6e3; /* Off-white, nyaman di mata */
+  --accent-color: #cdaa70; /* Emas/Kuningan yang elegan */
+  --meta-text-color: #888; /* Abu-abu untuk teks meta */
+  --border-color: #3a3a3a; /* Warna garis pemisah */
 
-  /* Tipografi */
-  --font-heading: "Merriweather", serif;
-  --font-body: "Lato", sans-serif;
+  /* Tipografi Editorial */
+  --font-heading: "Inter", sans-serif;
+  --font-body: "Lora", serif;
 }
 
-/* Anda bisa mengaktifkan dark mode ini dengan JavaScript nanti */
-body.dark-mode {
-  --background-color: #121212;
-  --text-color: #e0e1dd;
-  --accent-color: #48d1cc;
-  --card-background: #1e1e1e;
-  --meta-text-color: #adb5bd;
-  --border-color: #343a40;
+/* Anda bisa mengaktifkan light mode ini dengan JavaScript nanti */
+body.light-mode {
+  --bg-color: #fafafa;
+  --text-color: #222;
+  --accent-color: #b08d57;
+  --meta-text-color: #666;
+  --border-color: #e0e0e0;
 }
 
 /* --- 2. Reset & Gaya Global --- */
@@ -40,9 +38,10 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
   color: var(--text-color);
-  line-height: 1.7;
+  line-height: 1.8;
+  font-size: 17px;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -53,38 +52,35 @@ main {
 /* --- 3. Tipografi --- */
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--text-color);
   line-height: 1.3;
+  font-weight: 700;
 }
 
 h1 {
-  font-size: 2.8rem;
-  margin-bottom: 0.5rem;
+  font-size: 3rem;
 }
 h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
+  font-size: 2.2rem;
 }
 h3 {
   font-size: 1.5rem;
+  margin-bottom: 0.25rem;
 }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 a {
   color: var(--accent-color);
   text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-a:hover {
-  opacity: 0.8;
+  transition: all 0.2s;
 }
 
 /* --- 4. Layout & Kontainer --- */
@@ -92,19 +88,23 @@ a:hover {
 .posts-container,
 .post-container,
 .site-footer {
-  max-width: 800px;
+  max-width: 750px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .site-header {
-  text-align: center;
-  padding: 4rem 1.5rem 2rem 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  padding: 5rem 1.5rem 3rem 1.5rem;
+}
+
+.site-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-header p {
-  font-size: 1.1rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
   color: var(--meta-text-color);
 }
 
@@ -112,85 +112,87 @@ a:hover {
   text-align: center;
   padding: 3rem 1.5rem;
   margin-top: 2rem;
-  border-top: 1px solid var(--border-color);
   font-size: 0.9rem;
+  font-family: var(--font-heading);
   color: var(--meta-text-color);
 }
 
 /* --- 5. Komponen Spesifik --- */
 
-/* Kartu Postingan di Halaman Utama */
-.post-card {
-  background: var(--card-background);
-  padding: 2rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* Teks meta (tanggal, dll) */
-.post-meta {
-  font-size: 0.9rem;
+/* Daftar Postingan di Halaman Utama */
+.posts-container h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   color: var(--meta-text-color);
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.post-card {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.post-card:first-of-type {
+  padding-top: 0;
+}
+
+.post-card h3 a {
+  color: var(--text-color);
+}
+
+.post-card h3 a:hover {
+  color: var(--accent-color);
+}
+
+.post-meta {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--meta-text-color);
+  margin-bottom: 0.5rem;
 }
 
 .read-more {
-  display: inline-block;
-  margin-top: 1rem;
-  font-weight: bold;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 /* Halaman Detail Postingan */
 .post-container h1 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 .post-container .post-meta {
   margin-bottom: 3rem;
 }
 
-.post-body p {
-  font-size: 1.1rem;
-}
-
-.post-body h2 {
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
+/* Efek Drop Cap untuk kesan klasik */
+.post-body p:first-of-type::first-letter {
+  color: var(--accent-color);
+  font-size: 4.5em; /* 4.5x ukuran font normal */
+  float: left;
+  margin-right: 0.1em;
+  line-height: 0.8;
+  font-family: var(--font-heading);
 }
 
 .back-link {
   display: inline-block;
   margin-bottom: 2rem;
-  font-weight: bold;
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
 /* --- 6. Responsif untuk Mobile --- */
 @media (max-width: 768px) {
   body {
-    font-size: 16px; /* Ukuran font dasar untuk mobile */
+    font-size: 16px;
   }
-
   h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
-  h2 {
-    font-size: 1.8rem;
-  }
-  h3 {
-    font-size: 1.3rem;
-  }
-
-  .site-header,
-  main,
-  .site-footer {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .site-header {
+    padding-top: 4rem;
   }
 }
