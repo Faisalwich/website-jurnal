@@ -19,15 +19,15 @@ Since we aren't together anymore (read: don't meet constantly), I've had this fe
 
 Sometimes I feel a sense of regret for getting so close, knowing that it might not go anywhere right now. But honestly, the thought of not having had these interactions with her at all is even worse because... because I love her.
 
-d
+
 
 I still think about the ‘**what-ifs**’ sometimes.
 
-> *\>What if we had met at a different stage in our lives when things felt more equal?* 
+> *What if we had met at a different stage in our lives when things felt more equal?* 
 >
-> *\>What if I had tried harder to bridge the gap between our worlds?* 
+> *What if I had tried harder to bridge the gap between our worlds?* 
 >
-> *\>What if I had found the courage to tell her how I truly felt, even with our differences?*
+> *What if I had found the courage to tell her how I truly felt, even with our differences?*
 >
 > ### **At the end of the day, the what-ifs do not matter. Because, we did meet. I did love you. and You didn't know.**
 
