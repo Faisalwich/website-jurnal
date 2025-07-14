@@ -1,6 +1,7 @@
 ---
 title: Whispers of What If
 date: 2025-07-14T08:48:07.597Z
+featured_image: /img/uploads/e77c62c7-6e73-4d82-8e79-4862bc04af53.jpg
 ---
 My thoughts often drift to alternative realities. What if the universe had treated us more favorably? What if the moment we met was different? What if we were different people? Our connection felt like a near miss – so close to becoming a lasting commitment, so close to being sufficient, so close to the enduring love we needed to weather our shared storms. Nevertheless, I understand that our time together was finite. The ache comes from knowing that a slight shift in circumstances, a single alignment of fate, a touch more bravery or luck, or just a little 'more' of something – could have given us everything we longed for. But, it wasn't to be. Now, these possibilities remain locked within me as perpetual '**what-ifs**.' Our ending is a story that wishing alone cannot rewrite.
 
@@ -18,13 +19,15 @@ Since we aren't together anymore (read: don't meet constantly), I've had this fe
 
 Sometimes I feel a sense of regret for getting so close, knowing that it might not go anywhere right now. But honestly, the thought of not having had these interactions with her at all is even worse because... because I love her.
 
+d
+
 I still think about the ‘**what-ifs**’ sometimes.
 
-> *What if we had met at a different stage in our lives when things felt more equal?* 
+> *\>What if we had met at a different stage in our lives when things felt more equal?* 
 >
-> *What if I had tried harder to bridge the gap between our worlds?* 
+> *\>What if I had tried harder to bridge the gap between our worlds?* 
 >
-> *What if I had found the courage to tell her how I truly felt, even with our differences?*
+> *\>What if I had found the courage to tell her how I truly felt, even with our differences?*
 >
 > ### **At the end of the day, the what-ifs do not matter. Because, we did meet. I did love you. and You didn't know.**
 
