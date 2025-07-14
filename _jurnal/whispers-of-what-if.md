@@ -28,28 +28,18 @@ I still think about the ‘**what-ifs**’ sometimes.
 >
 > ### **At the end of the day, the what-ifs do not matter. Because, we did meet. I did love you. and You didn't know.**
 
-
-
-#  ﻿**...**
+# ﻿**...**
 
 Maybe love is not always about staying – sometimes, it reminds us of what it feels like to be truly seen, to be cherished, even if only for a little while. Love reminds us that we are capable of being loved, even if not forever.
 
 There is a certain peace in acknowledging that not every story unfolds as we might hope. And perhaps, the connection we shared, in the way it was, is its own complete narrative. So, thank you. For entering my life when you did. Thank you for the moments we shared. You made those days more meaningful, and I'm thankful for the chance I had to connect with you. And who knows, maybe one day I'll gather the courage to express these feelings directly, ready for whatever the response might be. 
 
-
-
 Because,  you were worth it. 
-
-
 
 **You still are**.
 
-
-
 Written by,
-
-
 
 S﻿al.
 
-![](/img/uploads/e77c62c7-6e73-4d82-8e79-4862bc04af53.jpg)
+![]()
