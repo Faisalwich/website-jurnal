@@ -15,7 +15,7 @@ I always think about her even when she's not around. She often crosses my mind e
 
 Part of me wishes we could be more than just friends. However, I feel like it's difficult right now because I'm not where I want to be financially. I worry that she might not see me as someone she'd want to be with if I'm not successful in my life. I have turned those words over in my mind so many times. I am trying to make them hurt less. However, it is what it is. They do not hurt less – they just make sense.
 
-Since we aren't together anymore (read: don't meet constantly), I've had this fear in the back of my mind that she might meet someone else there. It's a worry that pops up sometimes. But at the same time, I am genuinely happy for her that she's moved to a better place for her career.
+Since we aren't together anymore (read: don't meet constantly), I've had this fear in the back of my mind that she might meet someone else there. It's a worry that pops up sometimes. But at the same time, I am genuinely happy for her that she's moved to a better place for her.
 
 Sometimes I feel a sense of regret for getting so close, knowing that it might not go anywhere right now. But honestly, the thought of not having had these interactions with her at all is even worse because... because I love her.
 
