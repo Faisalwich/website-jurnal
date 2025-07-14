@@ -4,43 +4,102 @@ document.addEventListener("DOMContentLoaded", () => {
   const postsListContainer = document.getElementById("posts-list");
   const postContentContainer = document.getElementById("post-content");
 
+  // --- LOGIKA UNTUK DARK/LIGHT MODE ---
+  const themeToggleButton = document.getElementById("theme-toggle-btn");
+  const body = document.body;
+
+  // Fungsi untuk mengubah ikon
+  const updateThemeIcon = () => {
+    if (body.classList.contains("light-mode")) {
+      themeToggleButton.textContent = "🌙";
+    } else {
+      themeToggleButton.textContent = "☀️";
+    }
+  };
+
+  // Cek tema yang tersimpan saat halaman dimuat
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    body.classList.add("light-mode");
+  }
+  updateThemeIcon(); // Perbarui ikon saat pertama kali dibuka
+
+  // Event listener untuk tombol
+  themeToggleButton.addEventListener("click", () => {
+    body.classList.toggle("light-mode");
+    if (body.classList.contains("light-mode")) {
+      localStorage.setItem("theme", "light");
+    } else {
+      localStorage.removeItem("theme");
+    }
+    updateThemeIcon();
+  });
+
+  // --- Kode Anda yang sudah ada untuk menampilkan jurnal ---
+  document.addEventListener("DOMContentLoaded", () => {
+    // ... sisa kode Anda ...
+  });
+
   // ======================================================
-  // LOGIKA UNTUK HALAMAN UTAMA (index.html)
+  // LOGIKA UNTUK HALAMAN UTAMA (index.html) - VERSI DENGAN PENCARIAN
   // ======================================================
   if (postsListContainer) {
+    const searchInput = document.getElementById("search-input");
+    let allPosts = []; // Variabel untuk menyimpan semua data post
+
     // Ambil data dari "daftar isi"
     fetch("jurnal-list.json")
       .then((response) => response.json())
       .then((posts) => {
-        let allPostsHtml = "<h2>Semua Tulisan</h2>";
-
-        // Urutkan tulisan dari yang terbaru
-        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        // Buat kartu HTML untuk setiap tulisan
-        posts.forEach((post) => {
-          const postDate = new Date(post.date).toLocaleDateString("id-ID", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          });
-
-          allPostsHtml += `
-                        <article class="post-card">
-                            <h3>${post.title}</h3>
-                            <p class="post-meta">Dipublikasikan pada ${postDate}</p>
-                            <p>${post.snippet}</p>
-                            <a href="post.html?slug=${post.slug}" class="read-more">Baca Selengkapnya &rarr;</a>
-                        </article>
-                    `;
-        });
-
-        postsListContainer.innerHTML = allPostsHtml;
+        allPosts = posts; // Simpan data asli
+        renderPosts(allPosts); // Tampilkan semua post saat pertama kali dimuat
       })
       .catch((error) => {
         postsListContainer.innerHTML = "<p>Gagal memuat daftar tulisan.</p>";
         console.error("Gagal mengambil daftar jurnal:", error);
       });
+
+    // Fungsi untuk menampilkan (merender) postingan
+    function renderPosts(postsToRender) {
+      let allPostsHtml = "<h2>Semua Tulisan</h2>";
+
+      if (postsToRender.length === 0) {
+        postsListContainer.innerHTML = "<h2>Hasil Pencarian</h2><p>Tidak ada tulisan yang cocok.</p>";
+        return;
+      }
+
+      // Urutkan tulisan dari yang terbaru
+      postsToRender.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      // Buat kartu HTML untuk setiap tulisan
+      postsToRender.forEach((post) => {
+        const postDate = new Date(post.date).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+
+        allPostsHtml += `
+                <article class="post-card">
+                    <h3>${post.title}</h3>
+                    <p class="post-meta">Dipublikasikan pada ${postDate}</p>
+                    <p>${post.snippet}</p>
+                    <a href="post.html?slug=${post.slug}" class="read-more">Baca Selengkapnya &rarr;</a>
+                </article>
+            `;
+      });
+
+      postsListContainer.innerHTML = allPostsHtml;
+    }
+
+    // Event listener untuk kotak pencarian
+    searchInput.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const filteredPosts = allPosts.filter((post) => {
+        return post.title.toLowerCase().includes(searchTerm) || post.snippet.toLowerCase().includes(searchTerm);
+      });
+      renderPosts(filteredPosts);
+    });
   }
 
   // ======================================================

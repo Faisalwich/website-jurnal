@@ -1,17 +1,5 @@
 [
   {
-    "slug": "tulisan-pertama-saya",
-    "title": "Tulisan Pertama Saya di Jurnal Baru",
-    "date": "2025-07-13T15:00:00Z",
-    "snippet": "Ini adalah tulisan pertama untuk menguji coba fungsionalitas dari website jurnal baru yang sedang saya bangun."
-  },
-  {
-    "slug": "belajar-konsep-dasar-git",
-    "title": "Belajar Konsep Dasar Git untuk Pemula",
-    "date": "2025-07-12T11:30:00Z",
-    "snippet": "Catatan singkat saya saat mempelajari perintah-perintah dasar Git seperti add, commit, dan push."
-  },
-  {
     "slug": "tulisan-pertamaku",
     "title": "Tulisan Pertama untuk testing",
     "date": "2025-07-13T15:00:00Z",
