@@ -4,21 +4,94 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memuat Tulisan...</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header class="site-header">
-      <button id="theme-toggle-btn" class="theme-toggle">☀️</button>
-
       <a href="index.html" class="back-link">&larr; Kembali ke Daftar Jurnal</a>
     </header>
+
     <main>
-      <article id="post-content" class="post-container"></article>
+      <article id="post-content" class="post-container">
+        <p>Memuat tulisan...</p>
+      </article>
     </main>
+
     <footer class="site-footer">
       <p>&copy; 2025 - Faisal Wicahyono</p>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="script.js" defer></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const postContainer = document.getElementById("post-content");
+
+        // 1. Mengambil 'slug' dari URL
+        const params = new URLSearchParams(window.location.search);
+        const postSlug = params.get("slug");
+
+        if (!postSlug) {
+          postContainer.innerHTML = "<h2>Error: Tulisan tidak ditemukan.</h2>";
+          return;
+        }
+
+        // 2. Mengambil file .md yang sesuai dari folder _jurnal/
+        fetch(`/_jurnal/${postSlug}.md`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("File tulisan tidak ditemukan di server.");
+            }
+            return response.text();
+          })
+          .then((markdown) => {
+            // 3. Memisahkan metadata (front matter) dan isi tulisan (body)
+            const parts = markdown.split("---");
+            const frontMatterText = parts[1];
+            const markdownBody = parts[2];
+
+            const frontMatter = {};
+            frontMatterText.split("\n").forEach((line) => {
+              if (line.trim()) {
+                const [key, ...value] = line.split(":");
+                frontMatter[key.trim()] = value.join(":").trim();
+              }
+            });
+
+            // 4. Menyiapkan HTML untuk gambar (hanya jika ada)
+            const imageHtml = frontMatter.featured_image ? `<div class="featured-image-container"><img src="${frontMatter.featured_image}" alt="Gambar utama untuk ${frontMatter.title}"></div>` : "";
+
+            // 5. Mengubah isi tulisan dari Markdown ke HTML
+            const contentHtml = marked.parse(markdownBody);
+
+            const postDate = new Date(frontMatter.date).toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            });
+
+            // Mengubah judul tab browser
+            document.title = `${frontMatter.title} | Jurnal Faisal`;
+
+            // 6. Menampilkan semua elemen ke dalam halaman
+            postContainer.innerHTML = `
+                        <h1>${frontMatter.title}</h1>
+                        <p class="post-meta">Dipublikasikan pada ${postDate}</p>
+                        ${imageHtml}
+                        <div class="post-body">
+                            ${contentHtml}
+                        </div>
+                    `;
+          })
+          .catch((error) => {
+            postContainer.innerHTML = "<h2>Gagal memuat konten tulisan.</h2>";
+            console.error("Detail Error:", error);
+          });
+      });
+    </script>
   </body>
 </html>

@@ -168,13 +168,32 @@ a {
 }
 
 /* Efek Drop Cap untuk kesan klasik */
+/*
 .post-body p:first-of-type::first-letter {
   color: var(--accent-color);
-  font-size: 4.5em; /* 4.5x ukuran font normal */
+  font-size: 4.5em; /* 4.5x ukuran font normal
   float: left;
   margin-right: 0.1em;
   line-height: 0.8;
   font-family: var(--font-heading);
+}
+  */
+
+/* --- Gaya untuk Gambar Utama di Postingan --- */
+
+.featured-image-container {
+  width: 100%;
+  margin-bottom: 2.5rem; /* Jarak antara gambar dan isi tulisan */
+}
+
+.featured-image-container img {
+  display: block;
+  width: 100%; /* Membuat gambar responsif */
+  height: auto; /* Menjaga rasio aspek gambar */
+  max-height: 450px; /* Batas tinggi maksimum gambar (opsional) */
+  object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
+  border-radius: 8px;
+  margin: 0 auto; /* Membuat gambar di tengah */
 }
 
 .back-link {

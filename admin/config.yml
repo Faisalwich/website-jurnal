@@ -17,4 +17,5 @@ collections:
     fields: # Kolom isian yang akan muncul saat Anda menulis
       - { label: "Judul", name: "title", widget: "string" }
       - { label: "Tanggal Publikasi", name: "date", widget: "datetime" }
+      - { label: "Gambar Utama", name: "featured_image", widget: "image", required: false }
       - { label: "Isi Tulisan", name: "body", widget: "markdown" }
