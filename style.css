@@ -243,6 +243,20 @@ a {
   border-radius: 8px;
 }
 
+/* Styling for Blockquotes */
+blockquote {
+  border-left: 4px solid var(--accent-color);
+  margin: 1.5rem 0;
+  padding: 0.5rem 1.5rem;
+  font-style: italic;
+  color: var(--meta-text-color);
+}
+
+/* Removes extra space from the last paragraph inside a quote */
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 /* --- 6. Responsif untuk Mobile --- */
 @media (max-width: 768px) {
   body {
