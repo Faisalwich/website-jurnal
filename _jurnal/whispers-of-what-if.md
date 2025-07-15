@@ -21,8 +21,6 @@ Sometimes I feel a sense of regret for getting so close, knowing that it might n
 
 because I love her.
 
-
-
 I still think about the ‘**what-ifs**’ sometimes.
 
 > *What if we had met at a different stage in our lives when things felt more equal?* 
@@ -30,6 +28,12 @@ I still think about the ‘**what-ifs**’ sometimes.
 > *What if I had tried harder to bridge the gap between our worlds?* 
 >
 > *What if I had found the courage to tell her how I truly felt, even with our differences?*
+
+<!--StartFragment-->
+
+<span class="highlight">**At the end of the day, the what-ifs do not matter. Because, we did meet. I did love you. and You didn't know.**</span>
+
+<!--EndFragment-->
 
 ### **At the end of the day, the what-ifs do not matter. Because, we did meet. I did love you. and You didn't know.**
 
