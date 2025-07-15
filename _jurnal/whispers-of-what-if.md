@@ -3,12 +3,6 @@ title: Whispers of What If
 date: 2025-07-14T08:48:07.597Z
 featured_image: /img/uploads/e77c62c7-6e73-4d82-8e79-4862bc04af53.jpg
 ---
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/32Pdf9eyXDEMoClEJW6yYP?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-
-
-
-
-
 My thoughts often drift to alternative realities. What if the universe had treated us more favorably? What if the moment we met was different? What if we were different people? Our connection felt like a near miss–so close to becoming a lasting commitment, so close to being sufficient, so close to the enduring love we needed to weather our shared storms. Nevertheless, I understand that our time together was finite. The ache comes from knowing that a slight shift in circumstances, a single alignment of fate, a touch more bravery or luck, or just a little 'more' of something–could have given us everything we longed for. But, it wasn't to be. Now, these possibilities remain locked within me as perpetual '**what-ifs**.' Our ending is a story that wishing alone cannot rewrite.
 
 There's a unique kind of sadness that comes with caring deeply for someone you feel you might not be able to hold onto. And, looking back, it feels like that's what I experienced with you. Maybe a part of me always knew our paths might diverge, especially with our different roles and aspirations. I often think about why our connection happened when it did. You came into my work life and made an impact. I responded with an openness to something special. And now, with you moving on, I'm left wondering about the '**what-ifs**' and the chances I might have missed.
