@@ -25,7 +25,7 @@ because I love her.
 
 I still think about the ‘**what-ifs**’ sometimes.
 
-*\>What if we had met at a different stage in our lives when things felt more equal?* 
+*\> What if we had met at a different stage in our lives when things felt more equal?* 
 
 *What if I had tried harder to bridge the gap between our worlds?* 
 
