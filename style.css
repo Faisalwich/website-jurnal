@@ -257,6 +257,20 @@ blockquote p:last-child {
   margin-bottom: 0;
 }
 
+/* Styling for Highlighted Text */
+.highlight {
+  background-color: #f6e58d; /* A nice highlighter yellow */
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: #212529; /* Ensures text is readable */
+}
+
+/* Optional: Dark mode version for the highlight */
+body.dark-mode .highlight {
+  background-color: #f9ca24;
+  color: #1e1e1e;
+}
+
 /* --- 6. Responsif untuk Mobile --- */
 @media (max-width: 768px) {
   body {
