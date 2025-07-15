@@ -31,11 +31,9 @@ I still think about the ‘**what-ifs**’ sometimes.
 
 <!--StartFragment-->
 
-<span class="highlight">**At the end of the day, the what-ifs do not matter. Because, we did meet. I did love you. and You didn't know.**</span>
+## <span class="highlight">**At the end of the day, the what-ifs do not matter. Because, we did meet. I did love you. and You didn't know.**</span>
 
 <!--EndFragment-->
-
-### **At the end of the day, the what-ifs do not matter. Because, we did meet. I did love you. and You didn't know.**
 
 # ﻿**...**
 
