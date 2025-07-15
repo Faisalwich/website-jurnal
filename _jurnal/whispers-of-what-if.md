@@ -3,7 +3,7 @@ title: Whispers of What If
 date: 2025-07-14T08:48:07.597Z
 featured_image: /img/uploads/e77c62c7-6e73-4d82-8e79-4862bc04af53.jpg
 ---
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/32Pdf9eyXDEMoClEJW6yYP?utm_source=generator" width="50%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/32Pdf9eyXDEMoClEJW6yYP?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 
 
