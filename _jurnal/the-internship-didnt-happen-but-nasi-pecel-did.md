@@ -7,7 +7,7 @@ featured_image: /img/uploads/whatsapp-image-2025-07-30-at-21.07.49.jpeg
 
 Well, today hit a bit different. Got the news about the internship—didn't get it. "**Didn't make the cut,**" they said. It stings, man, no lie. You pour a lot of energy into these things, right? The applications, the interviews, trying to picture yourself there, learning, contributing. You get your hopes up, even if you try to play it cool.
 
-And then the email comes. Or the call. Just a polite "thanks, but no thanks." It's a quick, sharp punch to the gut. All that effort, all that anticipation, just... evaporated. My mind immediately jumped to: "What did I do wrong? Was I not smart enough? Not experienced enough? Did I say something dumb in the interview?" It's easy to spiral into that self-doubt, picking apart every single thing.
+And then the email comes. Just a polite "thanks, but no thanks." It's a quick, sharp punch to the gut. All that effort, all that anticipation, just... evaporated. My mind immediately jumped to: "What did I do wrong? Was I not smart enough? Not experienced enough? Did I say something dumb in the interview?" It's easy to spiral into that self-doubt, picking apart every single thing.
 
 I know, I know, people say "it's just one opportunity," and "there'll be others." And logically, I get that. But in the moment, it feels like a personal rejection. It feels like someone looked at what you offered, what you believed you could bring, and decided it wasn't quite enough. Maybe this is a tough lesson, but as they say, **"Every failure is a lesson if you learn from it."**
 
