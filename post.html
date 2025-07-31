@@ -110,26 +110,7 @@
                     <a href="index.html" class="read-more" style="margin-top: 2rem;">&larr; Kembali ke semua tulisan</a>
                 `;
 
-                // 2. SETELAH konten ada, baru buat dan sisipkan script giscus
-                const giscusScript = document.createElement('script');
-                giscusScript.src = "https://giscus.app/client.js";
-                // Ganti semua 'data' atribut di bawah ini dengan yang Anda dapatkan dari giscus.app
-                giscusScript.setAttribute("data-repo", "Faisalwich/website-jurnal");
-                giscusScript.setAttribute("data-repo-id", "R_kgDOMfLpYw"); 
-                giscusScript.setAttribute("data-category", "General");
-                giscusScript.setAttribute("data-category-id", "DIC_kwDOMfLpY84Ch-y_"); 
-                giscusScript.setAttribute("data-mapping", "pathname");
-                giscusScript.setAttribute("data-strict", "0");
-                giscusScript.setAttribute("data-reactions-enabled", "1");
-                giscusScript.setAttribute("data-emit-metadata", "0");
-                giscusScript.setAttribute("data-input-position", "top");
-                giscusScript.setAttribute("data-theme", "light"); 
-                giscusScript.setAttribute("data-lang", "id");
-                giscusScript.setAttribute("crossorigin", "anonymous");
-                giscusScript.async = true;
-
-                // Cari div #comments yang BARU SAJA dibuat, lalu sisipkan script
-                document.getElementById('comments').appendChild(giscusScript);
+               
             })
             .catch((error) => {
                 postContainer.innerHTML = "<h2>Gagal memuat konten tulisan.</h2>";
