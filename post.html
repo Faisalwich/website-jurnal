@@ -28,87 +28,114 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    // --- LOGIKA DARK MODE UNTUK HALAMAN INI ---
+    const themeToggleButton = document.getElementById("theme-toggle-btn");
+    const body = document.body;
 
-    <scrip><script>
-      // LOGIKA DARK MODE UNTUK HALAMAN INI
-      const themeToggleButton = document.getElementById("theme-toggle-btn");
-      const body = document.body;
-
-      if (themeToggleButton) {
+    if (themeToggleButton) {
         const updateThemeIcon = () => {
-          if (body.classList.contains("light-mode")) {
-            themeToggleButton.textContent = "🌙";
-          } else {
-            themeToggleButton.textContent = "☀️";
-          }
+            if (body.classList.contains("light-mode")) {
+                themeToggleButton.textContent = "🌙";
+            } else {
+                themeToggleButton.textContent = "☀️";
+            }
         };
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme === "light") {
-          body.classList.add("light-mode");
+            body.classList.add("light-mode");
         }
         updateThemeIcon();
         themeToggleButton.addEventListener("click", () => {
-          body.classList.toggle("light-mode");
-          if (body.classList.contains("light-mode")) {
-            localStorage.setItem("theme", "light");
-          } else {
-            localStorage.removeItem("theme");
-          }
-          updateThemeIcon();
+            body.classList.toggle("light-mode");
+            if (body.classList.contains("light-mode")) {
+                localStorage.setItem("theme", "light");
+            } else {
+                localStorage.removeItem("theme");
+            }
+            updateThemeIcon();
         });
-      }
+    }
 
-      // LOGIKA UNTUK MENAMPILKAN SATU TULISAN
-      document.addEventListener("DOMContentLoaded", () => {
+    // --- LOGIKA UNTUK MENAMPILKAN SATU TULISAN & KOMENTAR ---
+    document.addEventListener("DOMContentLoaded", () => {
         const postContainer = document.getElementById("post-content");
         const params = new URLSearchParams(window.location.search);
         const postSlug = params.get("slug");
 
         if (!postSlug) {
-          postContainer.innerHTML = "<h2>Error: Tulisan tidak ditemukan.</h2>";
-          return;
+            postContainer.innerHTML = "<h2>Error: Tulisan tidak ditemukan.</h2>";
+            return;
         }
 
         fetch(`/_jurnal/${postSlug}.md`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("File tulisan tidak ditemukan di server.");
-            }
-            return response.text();
-          })
-          .then((markdown) => {
-            const parts = markdown.split("---");
-            const frontMatterText = parts[1];
-            const markdownBody = parts[2];
-            const frontMatter = {};
-            frontMatterText.split("\n").forEach((line) => {
-              if (line.trim()) {
-                const [key, ...value] = line.split(":");
-                frontMatter[key.trim()] = value.join(":").trim();
-              }
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("File tulisan tidak ditemukan di server.");
+                }
+                return response.text();
+            })
+            .then((markdown) => {
+                // ... (Semua kode parsing markdown Anda di sini, tidak ada yang berubah)
+                const parts = markdown.split("---");
+                const frontMatterText = parts[1];
+                const markdownBody = parts[2];
+                const frontMatter = {};
+                frontMatterText.split("\n").forEach((line) => {
+                    if (line.trim()) {
+                        const [key, ...value] = line.split(":");
+                        frontMatter[key.trim()] = value.join(":").trim();
+                    }
+                });
+                const imageHtml = frontMatter.featured_image ? `<div class="featured-image-container"><img src="${frontMatter.featured_image}" alt="Gambar utama untuk ${frontMatter.title}"></div>` : "";
+                const contentHtml = marked.parse(markdownBody);
+                const postDate = new Date(frontMatter.date).toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                });
+                
+                document.title = `${frontMatter.title} | Jurnal Faisal`;
+
+                // 1. Tampilkan konten tulisan TERLEBIH DAHULU
+                postContainer.innerHTML = `
+                    <h1>${frontMatter.title}</h1>
+                    <p class="post-meta">Dipublikasikan pada ${postDate}</p>
+                    ${imageHtml}
+                    <div class="post-body">
+                        ${contentHtml}
+                    </div>
+                    <hr class="post-divider">
+                    <div id="comments"></div> 
+                    <a href="index.html" class="read-more" style="margin-top: 2rem;">&larr; Kembali ke semua tulisan</a>
+                `;
+
+                // 2. SETELAH konten ada, baru buat dan sisipkan script giscus
+                const giscusScript = document.createElement('script');
+                giscusScript.src = "https://giscus.app/client.js";
+                // Ganti semua 'data' atribut di bawah ini dengan yang Anda dapatkan dari giscus.app
+                giscusScript.setAttribute("data-repo", "Faisalwich/website-jurnal");
+                giscusScript.setAttribute("data-repo-id", "R_kgDOMfLpYw"); 
+                giscusScript.setAttribute("data-category", "General");
+                giscusScript.setAttribute("data-category-id", "DIC_kwDOMfLpY84Ch-y_"); 
+                giscusScript.setAttribute("data-mapping", "pathname");
+                giscusScript.setAttribute("data-strict", "0");
+                giscusScript.setAttribute("data-reactions-enabled", "1");
+                giscusScript.setAttribute("data-emit-metadata", "0");
+                giscusScript.setAttribute("data-input-position", "top");
+                giscusScript.setAttribute("data-theme", "light"); 
+                giscusScript.setAttribute("data-lang", "id");
+                giscusScript.setAttribute("crossorigin", "anonymous");
+                giscusScript.async = true;
+
+                // Cari div #comments yang BARU SAJA dibuat, lalu sisipkan script
+                document.getElementById('comments').appendChild(giscusScript);
+            })
+            .catch((error) => {
+                postContainer.innerHTML = "<h2>Gagal memuat konten tulisan.</h2>";
+                console.error("Detail Error:", error);
             });
-            const imageHtml = frontMatter.featured_image ? `<div class="featured-image-container"><img src="${frontMatter.featured_image}" alt="Gambar utama untuk ${frontMatter.title}"></div>` : "";
-            const contentHtml = marked.parse(markdownBody);
-            const postDate = new Date(frontMatter.date).toLocaleDateString("id-ID", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            });
-            document.title = `${frontMatter.title} | Jurnal Faisal`;
-            postContainer.innerHTML = `
-                        <h1>${frontMatter.title}</h1>
-                        <p class="post-meta">Dipublikasikan pada ${postDate}</p>
-                        ${imageHtml}
-                        <div class="post-body">
-                            ${contentHtml}
-                        </div>
-                    `;
-          })
-          .catch((error) => {
-            postContainer.innerHTML = "<h2>Gagal memuat konten tulisan.</h2>";
-            console.error("Detail Error:", error);
-          });
-      });
-    </script>
+    });
+</script>
   </body>
 </html>
