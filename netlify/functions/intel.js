@@ -1,24 +1,23 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
-  }
+  if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
 
   try {
     const body = JSON.parse(event.body);
-    const { title, url } = body;
-    
-    // Diambil dari Environment Variables Netlify
+    // Kita kasih nilai default "" agar tidak error kalau datanya absen
+    const title = body.title || "Judul Tak Terdeteksi";
+    const slug = body.slug || "unknown-slug";
+    const deviceInfo = body.deviceInfo || "Device Tak Dikenal";
+    const url = body.url || "#";
+
     const token = process.env.NEXT_PUBLIC_TELEGRAM_TOKEN;
     const chatId = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID;
 
-   const { title, slug, deviceInfo } = JSON.parse(event.body);
+    // Format pesan yang Tuan minta (MoneyWich Style)
+    const message = `🕵️ *[wichThink - Intel]* \n\nSeseorang sedang membaca artikel:\n\n*Judul*: ${title}\n*Slug*: ${slug}\n*Waktu*: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB\n*Device*: ${deviceInfo}\n\n🔗 *Link*: ${url}`;
 
-const message = `🕵️ *[wichThink - Intel]* \n\n👤 *Status:* Seseorang mencapai tengah artikel.\n📚 *Judul:* ${title}\n🔗 *Slug:* ${slug}\n📱 *Device:* ${deviceInfo}\n⏰ *Waktu:* ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB`;
-    const teleUrl = `https://api.telegram.org/bot${token}/sendMessage`;
-
-    await fetch(teleUrl, {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -28,8 +27,9 @@ const message = `🕵️ *[wichThink - Intel]* \n\n👤 *Status:* Seseorang menc
       })
     });
 
-    return { statusCode: 200, body: JSON.stringify({ status: "Success" }) };
+    return { statusCode: 200, body: "OK" };
   } catch (error) {
-    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
+    console.error(error);
+    return { statusCode: 500, body: error.toString() };
   }
 };
