@@ -73,21 +73,19 @@ function activeIntel() {
     const scrollPercent = (window.scrollY / scrollTotal) * 100;
 
     if (scrollPercent > 50 && !intelSent) {
-      // Ambil Judul asli dari H1 setelah dirender marked.js
-      const pageTitle = document.querySelector('h1')?.innerText || document.title;
+      // PERBAIKAN: Ambil judul dari <title> yang sudah diupdate oleh post.html
+      // Kita hapus bagian " | Jurnal Faisal" agar hanya judulnya saja
+      let fixTitle = document.title.split(' | ')[0];
       
-      // Ambil Slug dari URL Query (?slug=...)
       const params = new URLSearchParams(window.location.search);
       const postSlug = params.get("slug") || "homepage";
-      
-      // Info Device Ringkas
       const infoDevice = navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || "Browser";
 
       fetch("/.netlify/functions/intel", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-          title: pageTitle, 
+          title: fixTitle, // Judul asli artikel
           slug: postSlug,
           deviceInfo: infoDevice,
           url: window.location.href 
@@ -99,5 +97,5 @@ function activeIntel() {
   });
 }
 
-// Beri jeda agar Markdown selesai jadi HTML
-setTimeout(activeIntel, 2500);
+// Tambah durasi tunggu jadi 3 detik agar post.html selesai update document.title
+setTimeout(activeIntel, 3000);
