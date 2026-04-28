@@ -13,7 +13,9 @@ exports.handler = async (event) => {
     const token = process.env.NEXT_PUBLIC_TELEGRAM_TOKEN;
     const chatId = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID;
 
-    const message = `👀 *Intel Jurnal Lama*\nAda yang baca: *${title}*\nLink: ${url}`;
+   const { title, slug, deviceInfo } = JSON.parse(event.body);
+
+const message = `🕵️ *[wichThink - Intel]* \n\n👤 *Status:* Seseorang mencapai tengah artikel.\n📚 *Judul:* ${title}\n🔗 *Slug:* ${slug}\n📱 *Device:* ${deviceInfo}\n⏰ *Waktu:* ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB`;
     const teleUrl = `https://api.telegram.org/bot${token}/sendMessage`;
 
     await fetch(teleUrl, {
