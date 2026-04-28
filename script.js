@@ -73,32 +73,31 @@ function activeIntel() {
     const scrollPercent = (window.scrollY / scrollTotal) * 100;
 
     if (scrollPercent > 50 && !intelSent) {
-      // Ambil Judul & Slug dari URL
+      // Ambil Judul asli dari H1 setelah dirender marked.js
       const pageTitle = document.querySelector('h1')?.innerText || document.title;
-      const params = new URLSearchParams(window.location.search);
-      const postSlug = params.get("slug") || "Homepage";
       
-      // Ambil Device Info Sederhana
-      const infoDevice = `${navigator.platform} - ${navigator.userAgent.split('(')[1].split(')')[0]}`;
-
-      console.log("Intel: Mengirim data ke satellite...");
+      // Ambil Slug dari URL Query (?slug=...)
+      const params = new URLSearchParams(window.location.search);
+      const postSlug = params.get("slug") || "homepage";
+      
+      // Info Device Ringkas
+      const infoDevice = navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || "Browser";
 
       fetch("/.netlify/functions/intel", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           title: pageTitle, 
           slug: postSlug,
           deviceInfo: infoDevice,
           url: window.location.href 
         })
-      })
-      .then(() => console.log("Intel: Laporan diterima!"))
-      .catch(err => console.error("Intel: Offline", err));
+      });
 
       intelSent = true;
     }
   });
 }
 
-// Beri jeda 2 detik agar konten Markdown mendarat dulu
-setTimeout(activeIntel, 2000);
+// Beri jeda agar Markdown selesai jadi HTML
+setTimeout(activeIntel, 2500);
