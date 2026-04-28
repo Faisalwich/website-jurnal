@@ -86,3 +86,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+
+// Logika Intel: Kirim notifikasi jika scroll mencapai 50%
+let intelSent = false;
+window.addEventListener('scroll', function() {
+  const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+  const currentScroll = window.scrollY;
+  const scrollPercent = (currentScroll / scrollTotal) * 100;
+
+  if (scrollPercent > 50 && !intelSent) {
+    const pageTitle = document.querySelector('h1')?.innerText || document.title;
+    
+    fetch("/.netlify/functions/intel", {
+      method: "POST",
+      body: JSON.stringify({ 
+        title: pageTitle, 
+        url: window.location.href 
+      })
+    });
+
+    intelSent = true;
+  }
+});
