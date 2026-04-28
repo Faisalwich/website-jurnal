@@ -5,107 +5,100 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
 
   if (themeToggleButton) {
-    // Fungsi untuk mengubah ikon
     const updateThemeIcon = () => {
-      if (body.classList.contains("light-mode")) {
-        themeToggleButton.textContent = "🌙";
-      } else {
-        themeToggleButton.textContent = "☀️";
-      }
+      themeToggleButton.textContent = body.classList.contains("light-mode") ? "🌙" : "☀️";
     };
 
-    // Cek tema yang tersimpan saat halaman dimuat
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-      body.classList.add("light-mode");
-    }
+    if (savedTheme === "light") body.classList.add("light-mode");
     updateThemeIcon();
 
-    // Event listener untuk tombol
     themeToggleButton.addEventListener("click", () => {
       body.classList.toggle("light-mode");
-      if (body.classList.contains("light-mode")) {
-        localStorage.setItem("theme", "light");
-      } else {
-        localStorage.removeItem("theme");
-      }
+      body.classList.contains("light-mode") ? localStorage.setItem("theme", "light") : localStorage.removeItem("theme");
       updateThemeIcon();
     });
   }
 
-  // ======================================================
-  // LOGIKA HANYA UNTUK HALAMAN UTAMA (index.html)
-  // ======================================================
+  // --- LOGIKA HALAMAN UTAMA (index.html) ---
   const postsListContainer = document.getElementById("posts-list");
   if (postsListContainer) {
     const searchInput = document.getElementById("search-input");
     let allPosts = [];
 
     fetch("jurnal-list.json")
-      .then((response) => response.json())
-      .then((posts) => {
+      .then(res => res.json())
+      .then(posts => {
         allPosts = posts;
         renderPosts(allPosts);
       })
-      .catch((error) => {
-        postsListContainer.innerHTML = "<p>Gagal memuat daftar tulisan.</p>";
-        console.error("Gagal mengambil daftar jurnal:", error);
-      });
+      .catch(err => console.error("Gagal mengambil daftar jurnal:", err));
 
     function renderPosts(postsToRender) {
-      let allPostsHtml = "<h2>Semua Tulisan</h2>";
+      let html = "<h2>Semua Tulisan</h2>";
       if (postsToRender.length === 0) {
         postsListContainer.innerHTML = "<h2>Hasil Pencarian</h2><p>Tidak ada tulisan yang cocok.</p>";
         return;
       }
       postsToRender.sort((a, b) => new Date(b.date) - new Date(a.date));
-      postsToRender.forEach((post) => {
-        const postDate = new Date(post.date).toLocaleDateString("id-ID", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        });
-        allPostsHtml += `
-            <article class="post-card">
-                <h3><a href="post.html?slug=${post.slug}">${post.title}</a></h3>
-                <p class="post-meta">Dipublikasikan pada ${postDate}</p>
-                <p>${post.snippet}</p>
-                <a href="post.html?slug=${post.slug}" class="read-more">Baca Selengkapnya &rarr;</a>
-            </article>
-        `;
+      postsToRender.forEach(post => {
+        const postDate = new Date(post.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+        html += `
+          <article class="post-card">
+            <h3><a href="post.html?slug=${post.slug}">${post.title}</a></h3>
+            <p class="post-meta">Dipublikasikan pada ${postDate}</p>
+            <p>${post.snippet}</p>
+            <a href="post.html?slug=${post.slug}" class="read-more">Baca Selengkapnya &rarr;</a>
+          </article>`;
       });
-      postsListContainer.innerHTML = allPostsHtml;
+      postsListContainer.innerHTML = html;
     }
 
     searchInput.addEventListener("input", (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      const filteredPosts = allPosts.filter((post) => {
-        return post.title.toLowerCase().includes(searchTerm) || post.snippet.toLowerCase().includes(searchTerm);
-      });
-      renderPosts(filteredPosts);
+      const term = e.target.value.toLowerCase();
+      const filtered = allPosts.filter(p => p.title.toLowerCase().includes(term) || p.snippet.toLowerCase().includes(term));
+      renderPosts(filtered);
     });
   }
 });
 
-
-// Logika Intel: Kirim notifikasi jika scroll mencapai 50%
+// ======================================================
+// LOGIKA INTEL V2 (MONEYWICH VERSION)
+// ======================================================
 let intelSent = false;
-window.addEventListener('scroll', function() {
-  const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
-  const currentScroll = window.scrollY;
-  const scrollPercent = (currentScroll / scrollTotal) * 100;
 
-  if (scrollPercent > 50 && !intelSent) {
-    const pageTitle = document.querySelector('h1')?.innerText || document.title;
-    
-    fetch("/.netlify/functions/intel", {
-      method: "POST",
-      body: JSON.stringify({ 
-        title: pageTitle, 
-        url: window.location.href 
+function activeIntel() {
+  window.addEventListener('scroll', () => {
+    const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (window.scrollY / scrollTotal) * 100;
+
+    if (scrollPercent > 50 && !intelSent) {
+      // Ambil Judul & Slug dari URL
+      const pageTitle = document.querySelector('h1')?.innerText || document.title;
+      const params = new URLSearchParams(window.location.search);
+      const postSlug = params.get("slug") || "Homepage";
+      
+      // Ambil Device Info Sederhana
+      const infoDevice = `${navigator.platform} - ${navigator.userAgent.split('(')[1].split(')')[0]}`;
+
+      console.log("Intel: Mengirim data ke satellite...");
+
+      fetch("/.netlify/functions/intel", {
+        method: "POST",
+        body: JSON.stringify({ 
+          title: pageTitle, 
+          slug: postSlug,
+          deviceInfo: infoDevice,
+          url: window.location.href 
+        })
       })
-    });
+      .then(() => console.log("Intel: Laporan diterima!"))
+      .catch(err => console.error("Intel: Offline", err));
 
-    intelSent = true;
-  }
-});
+      intelSent = true;
+    }
+  });
+}
+
+// Beri jeda 2 detik agar konten Markdown mendarat dulu
+setTimeout(activeIntel, 2000);
