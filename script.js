@@ -65,37 +65,61 @@ document.addEventListener("DOMContentLoaded", () => {
 // ======================================================
 // LOGIKA INTEL V2 (MONEYWICH VERSION)
 // ======================================================
+// script.js - Intel MoneyWich v3 (Instagram Compatible)
+console.log("Intel System: Deploying...");
+
 let intelSent = false;
 
 function activeIntel() {
   window.addEventListener('scroll', () => {
-    const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (window.scrollY / scrollTotal) * 100;
+    // Perhitungan scroll yang lebih stabil di berbagai browser
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.documentElement.scrollHeight;
+    const scrolled = window.scrollY || window.pageYOffset;
+    
+    // Persentase posisi bawah layar
+    const scrollPercent = ((scrolled + windowHeight) / fullHeight) * 100;
 
     if (scrollPercent > 50 && !intelSent) {
-      // PERBAIKAN: Ambil judul dari <title> yang sudah diupdate oleh post.html
-      // Kita hapus bagian " | Jurnal Faisal" agar hanya judulnya saja
-      let fixTitle = document.title.split(' | ')[0];
-      
-      const params = new URLSearchParams(window.location.search);
-      const postSlug = params.get("slug") || "homepage";
-      const infoDevice = navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || "Browser";
+      try {
+        // Ambil data dasar
+        const fixTitle = document.title.split(' | ')[0];
+        const params = new URLSearchParams(window.location.search);
+        const postSlug = params.get("slug") || "homepage";
+        
+        // Deteksi Device secara tradisional (Paling aman untuk In-App Browser)
+        const ua = navigator.userAgent;
+        let deviceType = "PC/Desktop";
+        if (/android/i.test(ua)) deviceType = "Android Device";
+        else if (/iPhone|iPad|iPod/i.test(ua)) deviceType = "iOS Device";
+        
+        // Deteksi apakah dibuka via Instagram
+        const isInstagram = /Instagram/i.test(ua) ? " (via Instagram)" : "";
+        const fullDeviceInfo = deviceType + isInstagram;
 
-      fetch("/.netlify/functions/intel", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          title: fixTitle, // Judul asli artikel
-          slug: postSlug,
-          deviceInfo: infoDevice,
-          url: window.location.href 
+        console.log("Intel: Sending report to command center...");
+
+        fetch("/.netlify/functions/intel", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            title: fixTitle, 
+            slug: postSlug,
+            deviceInfo: fullDeviceInfo,
+            url: window.location.href 
+          })
         })
-      });
+        .then(() => console.log("Intel: Laporan diterima!"))
+        .catch(e => console.error("Intel: Fetch failed", e));
+
+      } catch (err) {
+        console.error("Intel: Logic error", err);
+      }
 
       intelSent = true;
     }
   });
 }
 
-// Tambah durasi tunggu jadi 3 detik agar post.html selesai update document.title
+// Jeda 3 detik agar konten & title benar-benar siap
 setTimeout(activeIntel, 3000);
