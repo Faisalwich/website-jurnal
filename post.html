@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -10,20 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KLHHKZP4EB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KLHHKZP4EB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'G-KLHHKZP4EB');
-</script>
+      gtag("config", "G-KLHHKZP4EB");
+    </script>
   </head>
   <body>
     <header class="site-header">
-      <button id="theme-toggle-btn" class="theme-toggle">☀️</button>
-
       <h1>WichThink</h1>
+
+      <button id="theme-toggle-btn" class="theme-toggle">☀️</button>
     </header>
 
     <main>
@@ -37,96 +39,95 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script>
-    // --- LOGIKA DARK MODE UNTUK HALAMAN INI ---
-    const themeToggleButton = document.getElementById("theme-toggle-btn");
-    const body = document.body;
-
-    if (themeToggleButton) {
-        const updateThemeIcon = () => {
-            if (body.classList.contains("light-mode")) {
-                themeToggleButton.textContent = "🌙";
-            } else {
-                themeToggleButton.textContent = "☀️";
-            }
-        };
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "light") {
-            body.classList.add("light-mode");
-        }
-        updateThemeIcon();
-        themeToggleButton.addEventListener("click", () => {
-            body.classList.toggle("light-mode");
-            if (body.classList.contains("light-mode")) {
-                localStorage.setItem("theme", "light");
-            } else {
-                localStorage.removeItem("theme");
-            }
-            updateThemeIcon();
-        });
-    }
-
-    // --- LOGIKA UNTUK MENAMPILKAN SATU TULISAN & KOMENTAR ---
-    document.addEventListener("DOMContentLoaded", () => {
+    <script>
+      // --- LOGIKA UNTUK MENAMPILKAN SATU TULISAN & KOMENTAR ---
+      document.addEventListener("DOMContentLoaded", () => {
         const postContainer = document.getElementById("post-content");
         const params = new URLSearchParams(window.location.search);
         const postSlug = params.get("slug");
 
+        // Jika slug tidak ada di URL, tampilkan pesan error
         if (!postSlug) {
-            postContainer.innerHTML = "<h2>Error: Tulisan tidak ditemukan.</h2>";
-            return;
+          postContainer.innerHTML = "<h2>Error: Tulisan tidak ditemukan.</h2>";
+          return;
         }
 
-        fetch(`/_jurnal/${postSlug}.md`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("File tulisan tidak ditemukan di server.");
-                }
-                return response.text();
-            })
-            .then((markdown) => {
-                // ... (Semua kode parsing markdown Anda di sini, tidak ada yang berubah)
-                const parts = markdown.split("---");
-                const frontMatterText = parts[1];
-                const markdownBody = parts[2];
-                const frontMatter = {};
-                frontMatterText.split("\n").forEach((line) => {
-                    if (line.trim()) {
-                        const [key, ...value] = line.split(":");
-                        frontMatter[key.trim()] = value.join(":").trim();
-                    }
-                });
-                const imageHtml = frontMatter.featured_image ? `<div class="featured-image-container"><img src="${frontMatter.featured_image}" alt="Gambar utama untuk ${frontMatter.title}"></div>` : "";
-                const contentHtml = marked.parse(markdownBody);
-                const postDate = new Date(frontMatter.date).toLocaleDateString("id-ID", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                });
-                
-                document.title = `${frontMatter.title} | Jurnal Faisal`;
+        // Mengambil file markdown dari folder _jurnal[cite: 5]
+        fetch(`_jurnal/${postSlug}.md`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("File tulisan tidak ditemukan di server.");
+            }
+            return response.text();
+          })
+          .then((markdown) => {
+            // Memisahkan front matter dan isi konten[cite: 5]
+            const parts = markdown.split("---");
+            const frontMatterText = parts[1];
+            const markdownBody = parts[2];
+            const frontMatter = {};
 
-                // 1. Tampilkan konten tulisan TERLEBIH DAHULU
-                postContainer.innerHTML = `
-                    <h1>${frontMatter.title}</h1>
-                    <p class="post-meta">Dipublikasikan pada ${postDate}</p>
-                    ${imageHtml}
-                    <div class="post-body">
-                        ${contentHtml}
-                    </div>
-                    <hr class="post-divider">
-                    <div id="comments"></div> 
-                    <a href="index.html" class="read-more" style="margin-top: 2rem;">&larr; Kembali ke semua tulisan</a>
-                `;
-
-               
-            })
-            .catch((error) => {
-                postContainer.innerHTML = "<h2>Gagal memuat konten tulisan.</h2>";
-                console.error("Detail Error:", error);
+            // Mengubah front matter menjadi objek[cite: 5]
+            frontMatterText.split("\n").forEach((line) => {
+              if (line.trim()) {
+                const [key, ...value] = line.split(":");
+                frontMatter[key.trim()] = value.join(":").trim();
+              }
             });
-    });
-</script>
+
+            // 1. UPDATE JUDUL TAB (DIBERSIHKAN DARI TANDA KUTIP)
+            const rawTitle = frontMatter.title || "Tulisan";
+            const cleanTitle = rawTitle.replace(/"/g, "");
+            document.title = `${cleanTitle} | WichThink`;
+
+            // 2. PROSES TANGGAL, GAMBAR, DAN KONTEN[cite: 5, 7]
+            const postDate = new Date(frontMatter.date).toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            });
+
+            const contentHtml = marked.parse(markdownBody);
+
+            // SISTEM DEFENSIF UNTUK GAMBAR (MENCEGAH PATH ERROR)
+            let imageHtml = "";
+            if (frontMatter.featured_image) {
+              let cleanImagePath = frontMatter.featured_image;
+              if (cleanImagePath.startsWith("/")) {
+                cleanImagePath = cleanImagePath.substring(1);
+              }
+              imageHtml = `<div class="featured-image-container"><img src="${cleanImagePath}" alt="Gambar utama untuk ${frontMatter.title}"></div>`;
+            }
+
+            // SISTEM DEFENSIF UNTUK TAGS NEOBRUTALISM[cite: 7]
+            let tagsHtml = "";
+            if (frontMatter.tags) {
+              const tagArray = frontMatter.tags.split(",").map((tag) => tag.trim());
+              tagsHtml = `<div class="tags-container">` + tagArray.map((tag) => `<span class="tag-badge">#${tag}</span>`).join("") + `</div>`;
+            }
+
+            // 3. CETAK KE LAYAR (POST CONTAINER)[cite: 5, 7]
+            postContainer.innerHTML = `
+                <h1>${cleanTitle}</h1>
+                <div class="post-meta-container">
+                    <div class="post-date">📅 ${postDate}</div>
+                    ${tagsHtml}
+                </div>
+                ${imageHtml}
+                <div class="post-body">
+                    ${contentHtml}
+                </div>
+                <hr class="post-divider">
+                <div id="comments"></div> 
+                <a href="index.html" style="display:inline-block; margin-top: 2rem; font-family: var(--font-heading); font-weight: 700; color: var(--accent-color); text-decoration: none;">&larr; Kembali ke semua tulisan</a>
+            `;
+          })
+          .catch((error) => {
+            postContainer.innerHTML = "<h2>Gagal memuat konten tulisan.</h2>";
+            console.error("Detail Error:", error);
+          });
+      });
+    </script>
 
     <script src="script.js"></script>
   </body>
